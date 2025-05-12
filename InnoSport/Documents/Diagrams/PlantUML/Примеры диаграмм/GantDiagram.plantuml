@@ -1,0 +1,44 @@
+@startgantt
+language ru
+
+tuesday are closed
+thursday are closed
+saturday are closed
+sunday are closed
+
+2025-05-01 to 2025-05-10 is closed
+
+project starts the 2025-03-25
+
+[Тема 1] requires 3 days
+[Тема 2] requires 3 days
+[Тема 3] requires 3 days
+[Тема 4] requires 3 days
+[Тема 5] requires 3 days
+[Тема 6] requires 3 days
+[Зачёт] requires 1 days
+
+[Тема 2] starts at [Тема 1]'s end
+[Тема 3] starts at [Тема 2]'s end
+[Тема 4] starts at [Тема 3]'s end
+[Тема 5] starts at [Тема 4]'s end
+[Тема 6] starts at [Тема 5]'s end
+[Зачёт] starts at [Тема 6]'s end
+
+'Стили
+
+[Тема 1] is colored in red
+[Тема 2] is colored in blue
+[Тема 3] is colored in green
+[Тема 4] is colored in yellow
+[Тема 5] is colored in orange
+[Тема 6] is colored in purple
+[Зачёт] is colored in pink
+
+tuesday are colored in lightgray
+thursday are colored in lightgray
+saturday are colored in lightgray
+sunday are colored in lightgray
+
+2025-05-01 to 2025-05-10 are colored in lightsalmon
+@endgantt

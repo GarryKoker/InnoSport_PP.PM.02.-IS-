@@ -1,0 +1,52 @@
+@startuml
+package "InnoSport" {
+    
+    package "Data" {
+        class AppDBContext
+        class User
+        class Section
+        class UserSection
+    }
+
+    package "Models" {
+        class Roles
+    }
+
+    package "Views" {
+        package "Пользователь" {
+            class AvailableSections
+        }
+        package "Тренер" {
+            class TrainerMainWindow
+        }
+        package "Администратор" {
+            class AdministratorMainWindow
+            class AdminEditingSection
+        }
+        package "ГлавныйАдминистратор" {
+            class ChiefAdministratorMainWindow
+            class ChiefAdminAddNewUser
+            class ChiefAdministratorEditingSection
+        }
+    }
+
+    package "Documents" {
+        class Архитектура_системы
+        class Детализация_требований
+        class Общая_постановка_задачи
+        class Общие_требования
+        class Роли
+        class Терминологический_словарь
+        class Функциональные_требования
+    }
+}
+
+' Взаимодействия между пакетами
+Data --> Models : Использует
+Views --> Data : Использует
+Views --> Models : Использует
+Documents ..> Views : Описывает
+Documents ..> Data : Описывает
+Documents ..> Models : Описывает
+
+@enduml

@@ -1,0 +1,62 @@
+@startuml
+
+class User {
+    + Id : int <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Phone : string <<get>> <<set>>
+}
+
+class Size {
+    + Length : decimal <<get>> <<set>>
+    + Width : decimal <<get>> <<set>>
+    + Height : decimal <<get>> <<set>>
+}
+
+Size <--* Cargo
+User <--* Cargo
+class Cargo {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + Price : decimal <<get>> <<set>>
+    + Weight : decimal <<get>> <<set>>
+    + Size : Size <<get>> <<set>>
+    + Owner : User <<get>> <<set>>
+}
+
+class Coordinates {
+    + Latitude : decimal <<get>> <<set>>
+    + Longitude : decimal <<get>> <<set>>
+}
+
+Coordinates <--* Point
+class Point {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + Address : string <<get>> <<set>>
+}
+
+Cargo <--o Transport
+Point <.. Transport
+abstract class Transport{
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + CargoTank : Cargo[] <<get>>
+
+    + LoadCargo(Cargo cargo) : bool
+    + {abstract} Drive(start : Point, finish : Point) : void
+}
+
+Transport <|-- Truck
+class Truck {
+    + <<override>> Drive(start : Point, finish : Point) : void
+}
+
+Transport <|-- Ship
+class Ship {
+    + <<override>> Drive(start : Point, finish : Point) : void
+}
+
+@enduml

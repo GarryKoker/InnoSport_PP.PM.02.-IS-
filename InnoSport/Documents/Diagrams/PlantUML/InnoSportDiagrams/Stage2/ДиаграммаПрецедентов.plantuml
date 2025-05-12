@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+
+actor "Обычный пользователь" as User
+actor "Спортсмен" as Athlete
+actor "Тренер" as Trainer
+actor "Администратор" as Admin
+actor "Главный администратор" as ChiefAdmin
+
+rectangle "InnoSport" {
+    usecase "Регистрация" as UC1
+    usecase "Авторизация" as UC2
+    usecase "Просмотр доступных секций" as UC3
+    usecase "Присоединение к секции" as UC4
+    usecase "Просмотр расписания тренировок" as UC5
+    usecase "Просмотр достижений" as UC6
+    usecase "Управление тренировками" as UC7
+    usecase "Просмотр прогресса спортсменов" as UC8
+    usecase "Управление пользователями" as UC9
+    usecase "Управление секциями" as UC10
+    usecase "Просмотр отчетов" as UC11
+    usecase "Настройка системы" as UC12
+}
+
+User --> UC1 : "Регистрация"
+User --> UC2 : "Авторизация"
+User --> UC3 : "Просмотр доступных секций"
+User --> UC4 : "Присоединение к секции"
+
+Athlete --> UC2 : "Авторизация"
+Athlete --> UC5 : "Просмотр расписания тренировок"
+Athlete --> UC6 : "Просмотр достижений"
+
+Trainer --> UC2 : "Авторизация"
+Trainer --> UC7 : "Управление тренировками"
+Trainer --> UC8 : "Просмотр прогресса спортсменов"
+
+Admin --> UC2 : "Авторизация"
+Admin --> UC9 : "Управление пользователями"
+Admin --> UC10 : "Управление секциями"
+
+ChiefAdmin --> UC2 : "Авторизация"
+ChiefAdmin --> UC9 : "Управление пользователями"
+ChiefAdmin --> UC10 : "Управление секциями"
+ChiefAdmin --> UC11 : "Просмотр отчетов"
+ChiefAdmin --> UC12 : "Настройка системы"
+
+@enduml

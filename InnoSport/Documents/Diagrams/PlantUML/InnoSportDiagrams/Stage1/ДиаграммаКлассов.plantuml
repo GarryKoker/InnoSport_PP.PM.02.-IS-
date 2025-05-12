@@ -1,0 +1,64 @@
+@startuml
+!define Table(x) class x << (T,#FFAAAA) >>
+
+' Класс User
+class User {
+    + int Id
+    + string Name
+    + string Surname
+    + string Otchestvo
+    + string Login
+    + string PhoneNumber
+    + string Email
+    + string Password
+    + Roles Role
+}
+
+' Класс Section
+class Section {
+    + int Id
+    + string Name
+    + string Type
+    + string Description
+}
+
+' Класс Training
+class Training {
+    + int Id
+    + DateTime Date
+    + string Time
+    + string Description
+    + int SectionId
+    + Section Section
+}
+
+' Класс UserSection
+class UserSection {
+    + int Id
+    + int UserId
+    + User User
+    + int SectionId
+    + Section Section
+}
+
+' Класс TrainerTraining (локальный класс в TrainerMainWindow.xaml.cs)
+class TrainerTraining {
+    + string Date
+    + string Time
+    + string Section
+    + string Description
+}
+
+' Класс Athlete (локальный класс в TrainerMainWindow.xaml.cs)
+class Athlete {
+    + string Name
+    + string Surname
+    + string Section
+    + string Progress
+}
+
+' Связи между классами
+UserSection --> User : "1"
+UserSection --> Section : "1"
+Training --> Section : "1"
+@enduml
