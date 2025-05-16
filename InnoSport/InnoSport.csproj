@@ -13,12 +13,23 @@
     <Folder Include="Documents\Diagrams\PlantUML\.qodo\" />
     <Folder Include="appsetings.json\" />
     <Folder Include="Contracts\" />
-    <Folder Include="Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
     <Folder Include="Resources\" />
     <Folder Include="Services\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\Администратор\" />
+    <Folder Include="Views\Главный администратор\" />
+    <Folder Include="Views\Тренер\" />
+    <Folder Include="Views\Обычный пользователь\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
 </Project>
