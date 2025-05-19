@@ -14,9 +14,16 @@ namespace InnoSport.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("postgresql://neondb_owner:npg_fOi73drXAFCm@ep-black-mud-a9oiu3p2-pooler.gwc.azure.neon.tech/neondb?sslmode=require");
+            optionsBuilder.UseNpgsql(
+            "Host=aws-0-eu-west-2.pooler.supabase.com;" +
+            "Port=5432;" +
+            "Database=postgres;" +
+            "User Id=postgres.dreqypvfjflhqexmfnwr;" +
+            "Password=InnoSportDatabase555;" +
+            "SSL Mode=Require;Trust Server Certificate=true;"
+            );
         }
 
-        public DbSet<InnoSport.Models.Users> Users { get; set; }
+        public DbSet<InnoSport.Models.User> Users { get; set; } = null!;
     }
 }

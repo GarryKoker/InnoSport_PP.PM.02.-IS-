@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="14">Логин</TextBlock>
+            <TextBox x:Name="LoginTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <TextBlock FontSize="14" Margin="0 15 0 0">Пароль</TextBlock>
+            <TextBox x:Name="PasswordTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <Button x:Name="LoginButton" Click="LoginButton_Click" Margin="0 15 0 0">Войти</Button>
+
+            <TextBlock HorizontalAlignment="Center" Margin="0 15 0 0">
+                <Run>Нет аккаунта?</Run>
+                <Hyperlink Click="GoToRegistrationHyperlink_Click">Зарегистрироваться</Hyperlink>
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

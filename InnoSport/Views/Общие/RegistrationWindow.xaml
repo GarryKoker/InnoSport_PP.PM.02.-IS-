@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock FontSize="14">Логин</TextBlock>
+            <TextBox x:Name="LoginTextBox" Width="200" Margin="0 5 0 0"></TextBox>
 
+            <TextBlock FontSize="14" Margin="0 15 0 0">Имя</TextBlock>
+            <TextBox x:Name ="NameTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <TextBlock FontSize="14" Margin="0 15 0 0">Фамилия</TextBlock>
+            <TextBox x:Name ="SurnameTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <TextBlock FontSize="14" Margin="0 15 0 0">Номер телефона</TextBlock>
+            <TextBox x:Name ="PhoneNumberTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <TextBlock FontSize="14" Margin="0 15 0 0">Введите пароль</TextBlock>
+            <TextBox x:Name ="PasswordTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <TextBlock FontSize="14" Margin="0 15 0 0">Повторите пароль</TextBlock>
+            <TextBox x:Name ="SecondPasswordTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+
+            <Button x:Name="RegistrationButton" Click="RegistrationButton_Click" Margin="0 15 0 0">Зарегистирроваться</Button>
+
+            <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0">
+                <Run>Уже есть аккаунт?</Run>
+                <Hyperlink Click="GoToLoginWindowHyperlink_Click">Войти</Hyperlink>
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

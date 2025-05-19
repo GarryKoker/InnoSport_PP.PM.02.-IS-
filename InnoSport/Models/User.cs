@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InnoSport.Models
 {
-    public class Users
+    public class User
     {
         [Key]
         public int Id { get; set; }
@@ -18,12 +18,14 @@ namespace InnoSport.Models
 
         public string Surname { get; set; }
 
-        public string Otchestvo { get; set; }
+        public string? Otchestvo { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         public string Password { get; set; }
+
+        public int Role { get; set; } = (int)Roles.User;
     }
 }
