@@ -21,10 +21,10 @@
             <TextBox x:Name ="PhoneNumberTextBox" Width="200" Margin="0 5 0 0"></TextBox>
 
             <TextBlock FontSize="14" Margin="0 15 0 0">Введите пароль</TextBlock>
-            <TextBox x:Name ="PasswordTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+            <PasswordBox x:Name ="PasswordTextBox" Width="200" Margin="0 5 0 0"></PasswordBox>
 
             <TextBlock FontSize="14" Margin="0 15 0 0">Повторите пароль</TextBlock>
-            <TextBox x:Name ="SecondPasswordTextBox" Width="200" Margin="0 5 0 0"></TextBox>
+            <PasswordBox x:Name ="SecondPasswordTextBox" Width="200" Margin="0 5 0 0"></PasswordBox>
 
             <Button x:Name="RegistrationButton" Click="RegistrationButton_Click" Margin="0 15 0 0">Зарегистирроваться</Button>
 

@@ -27,5 +27,7 @@ namespace InnoSport.Models
         public string Password { get; set; }
 
         public int Role { get; set; } = (int)Roles.User;
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

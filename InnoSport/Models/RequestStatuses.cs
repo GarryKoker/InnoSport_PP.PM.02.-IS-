@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace InnoSport.Models
 {
-    public enum Roles
+    public enum RequestStatuses
     {
-        User,
-        Sportsman,
-        Trainer,
-        Administrator,
-        ChiefAdministrator
+        На_рассмотрении,
+        Отклонено,
+        Одобрено,
     }
 }

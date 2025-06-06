@@ -1,16 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using InnoSport.Data;
 using InnoSport.Models;
-using InnoSport.Views.Обычный_пользователь;
+using InnoSport.Helpers;
 
 namespace InnoSport
 {
@@ -23,25 +16,25 @@ namespace InnoSport
 
         public void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            string Login = LoginTextBox.Text;
-            string Name = NameTextBox.Text;
-            string Surname = SurnameTextBox.Text;
-            string PhoneNumber = PhoneNumberTextBox.Text;
-            string Password = PasswordTextBox.Text;
-            string SecondPassword = SecondPasswordTextBox.Text;
+            string login = LoginTextBox.Text.Trim();
+            string name = NameTextBox.Text.Trim();
+            string surname = SurnameTextBox.Text.Trim();
+            string phoneNumber = PhoneNumberTextBox.Text.Trim();
+            string password = PasswordTextBox.Password.Trim();
+            string secondPassword = SecondPasswordTextBox.Password.Trim();
 
-            if (string.IsNullOrEmpty(Login)
-                || string.IsNullOrEmpty(Name)
-                || string.IsNullOrEmpty(Surname)
-                || string.IsNullOrEmpty(PhoneNumber)
-                || string.IsNullOrEmpty(Password)
-                || string.IsNullOrEmpty(SecondPassword))
+            if (string.IsNullOrEmpty(login) ||
+                string.IsNullOrEmpty(name) ||
+                string.IsNullOrEmpty(surname) ||
+                string.IsNullOrEmpty(phoneNumber) ||
+                string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(secondPassword))
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (Password != SecondPassword)
+            if (password != secondPassword)
             {
                 MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -51,39 +44,43 @@ namespace InnoSport
             {
                 using (var db = new AppDBContext())
                 {
-                    if (db.Users.Any(u => u.Login == Login || u.PhoneNumber == PhoneNumber))
+                    if (db.Users.Any(u => u.Login == login))
                     {
-                        MessageBox.Show("Пользователь с таким логином или номером телефона уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Пользователь с таким логином уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    if (db.Users.Any(u => u.PhoneNumber == phoneNumber))
+                    {
+                        MessageBox.Show("Пользователь с таким номером телефона уже существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
 
-                    else
+                    var user = new User
                     {
-                        User user = new User
-                        {
-                            Login = Login,
-                            Name = Name,
-                            Surname = Surname,
-                            PhoneNumber = PhoneNumber,
-                            Password = Password
-                        };
-                        db.Users.Add(user);
-                        db.SaveChanges();
-                        MessageBox.Show("Регистрация прошла успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                        SimpleUserMainWindow simpleUserMainWindow = new SimpleUserMainWindow(user);
-                    }
+                        Login = login,
+                        Name = name,
+                        Surname = surname,
+                        PhoneNumber = phoneNumber,
+                        Password = PasswordHelper.HashPassword(password),
+                        Role = (int)Roles.User // По умолчанию обычный пользователь
+                    };
+                    db.Users.Add(user);
+                    db.SaveChanges();
+
+                    MessageBox.Show("Регистрация прошла успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    new LoginWindow().Show();
+                    this.Close();
                 }
             }
-
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}\n\n{ex.InnerException?.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка регистрации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         public void GoToLoginWindowHyperlink_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show();
+            new LoginWindow().Show();
             this.Close();
         }
     }

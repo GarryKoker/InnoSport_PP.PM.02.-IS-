@@ -1,18 +1,14 @@
-﻿using InnoSport.Data;
-using InnoSport.Views.Обычный_пользователь;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using InnoSport.Data;
+using InnoSport.Models;
+using InnoSport.Helpers;
+using InnoSport.Views.Обычный_пользователь;
+using InnoSport.Views.Спортсмен;
+using InnoSport.Views.Тренер;
+using InnoSport.Views.Администратор;
+using InnoSport.Views.Главный_администратор;
 
 namespace InnoSport
 {
@@ -23,44 +19,66 @@ namespace InnoSport
             InitializeComponent();
         }
 
-        public void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string Login = LoginTextBox.Text;
-            string Password = PasswordTextBox.Text;
+            string loginOrPhone = LoginTextBox.Text.Trim();
+            string password = PasswordTextBox.Password.Trim();
 
-            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(loginOrPhone) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Все поля должны быть заполнены!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите логин/телефон и пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            using (var db = new AppDBContext())
+            try
             {
-                if (db.Users.Any(u => u.Login == Login && u.Password == Password))
+                using (var db = new AppDBContext())
                 {
-                    var User = db.Users.FirstOrDefault(u => u.Login == Login);
-                    switch (User.Role)
+                    string passwordHash = PasswordHelper.HashPassword(password);
+                    var user = db.Users.FirstOrDefault(u =>
+                        (u.Login == loginOrPhone || u.PhoneNumber == loginOrPhone) &&
+                        u.Password == passwordHash);
+
+                    if (user == null)
                     {
-                        case 0:
-                            SimpleUserMainWindow NewWindow = new SimpleUserMainWindow(User);
-                            break;
+                        MessageBox.Show("Неверный логин/телефон или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
-                    SimpleUserMainWindow window = new SimpleUserMainWindow(db.Users.FirstOrDefault(u => u.Login == Login));
-                    window.Show();
+
+                    switch ((Roles)user.Role)
+                    {
+                        case Roles.User:
+                            new SimpleUserMainWindow(user).Show();
+                            break;
+                        case Roles.Sportsman:
+                            new SportsmenMainWindow(user).Show();
+                            break;
+                        case Roles.Trainer:
+                            new TrainerMainWindow(user).Show();
+                            break;
+                        case Roles.Administrator:
+                            new AdministratorMainWindow(user).Show();
+                            break;
+                        case Roles.ChiefAdministrator:
+                            new InnoSport.Views.Главный_администратор.ChiefAdministratorMainWindow().Show();
+                            break;
+                        default:
+                            MessageBox.Show("Неизвестная роль пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                    }
+
                     this.Close();
                 }
-
-                else
-                {
-                    MessageBox.Show("Неверный логин или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка входа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public void GoToRegistrationHyperlink_Click(object sender, RoutedEventArgs e)
+        private void GoToRegistrationHyperlink_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationWindow registrationWindow = new RegistrationWindow();
-            registrationWindow.Show();
+            new RegistrationWindow().Show();
             this.Close();
         }
     }

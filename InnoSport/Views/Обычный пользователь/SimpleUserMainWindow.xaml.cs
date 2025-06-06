@@ -1,28 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using InnoSport.Models;
+using InnoSport.Data;
 
 namespace InnoSport.Views.Обычный_пользователь
 {
     public partial class SimpleUserMainWindow : Window
     {
-        private User user;
+        private int userId;
+
         public SimpleUserMainWindow(User user)
         {
             InitializeComponent();
-            this.user = user;
-            HelloTextBox.Text = $"Привет, {user.Name}";
+            userId = user.Id;
+            LoadUserData();
+        }
+
+        private void LoadUserData()
+        {
+            using var db = new AppDBContext();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                UserFullNameText.Text = $"{user.Surname} {user.Name} {user.Otchestvo}".Trim();
+                UserPhoneText.Text = user.PhoneNumber;
+                UserEmailText.Text = user.Email ?? "";
+            }
+            else
+            {
+                UserFullNameText.Text = "";
+                UserPhoneText.Text = "";
+                UserEmailText.Text = "";
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var editWindow = new SimpleUserEditAccountInformation(userId);
+            if (editWindow.ShowDialog() == true)
+            {
+                LoadUserData();
+            }
         }
     }
 }
