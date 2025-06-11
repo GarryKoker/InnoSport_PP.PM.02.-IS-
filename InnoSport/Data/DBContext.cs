@@ -5,6 +5,7 @@ namespace InnoSport.Data
     public class AppDBContext : DbContext
     {
         public AppDBContext() => Database.EnsureCreated();
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
