@@ -51,5 +51,4 @@ public class ProjectCoreTests
         Assert.Single(db.Sections);
         Assert.Equal("Футбол", db.Sections.First().Name);
     }
-    // ... остальные тесты аналогично
 }
