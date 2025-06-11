@@ -1,0 +1,100 @@
+﻿<Window x:Class="InnoSport.Views.Тренер.TrainerMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Панель тренера"
+        WindowStartupLocation="CenterScreen"
+        Height="700" Width="1100"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F0F4F8" Offset="0"/>
+            <GradientStop Color="#E3EAFD" Offset="0.5"/>
+            <GradientStop Color="#B6D0E2" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с приветствием и кнопкой редактирования профиля -->
+        <DockPanel Grid.Row="0" Margin="0,24,0,24">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                <Ellipse Width="56" Height="56" Fill="#4A90E2" Margin="0,0,16,0" RenderTransformOrigin="0.821,0.562"/>
+                <StackPanel>
+                    <TextBlock Text="Здравствуйте, тренер!" FontSize="20" FontWeight="SemiBold" Foreground="#4A90E2" RenderTransformOrigin="0.74,0.377"/>
+                    <TextBlock x:Name="TrainerNameText" FontSize="26" FontWeight="Bold" Foreground="#222"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Content="Редактировать профиль"
+                    Background="#4A90E2" Foreground="White" FontWeight="SemiBold"
+                    BorderThickness="0" Height="38" Width="180" Margin="0,0,0,0"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Click="EditProfileButton_Click"/>
+        </DockPanel>
+
+        <!-- Основной контент -->
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="2.8*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Список учеников -->
+            <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,20,0" BorderBrush="#E3EAFD" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Мои ученики" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,16"/>
+                    <DataGrid x:Name="StudentsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                              HeadersVisibility="Column" RowHeight="38" FontSize="15"
+                              Background="White" BorderThickness="0" GridLinesVisibility="None"
+                              SelectionMode="Single" Margin="0,0,0,10"
+                              SelectionChanged="StudentsDataGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+            <!-- Правая часть: график прогресса и расписание -->
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch">
+                <!-- График прогресса -->
+                <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,0,18" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="График прогресса ученика" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,16"/>
+                        <!-- Здесь будет график (например, через стороннюю библиотеку или Canvas) -->
+                        <Border Height="180" Background="#E3EAFD" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                            <TextBlock Text="График прогресса (заглушка)" Foreground="#4A90E2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Расписание тренировок -->
+                <Border Background="White" CornerRadius="18" Padding="24" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Расписание тренировок" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,16"/>
+                        <DataGrid x:Name="ScheduleDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HeadersVisibility="Column" RowHeight="36" FontSize="15"
+                                  Background="White" BorderThickness="0" GridLinesVisibility="None"
+                                  Margin="0,0,0,10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+                                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="*"/>
+                                <DataGridTextColumn Header="Секция" Binding="{Binding SectionName}" Width="*"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                            <Button Content="Добавить" Width="110" Height="32" Background="#4A90E2" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,8,0" Click="AddScheduleButton_Click"/>
+                            <Button Content="Удалить" Width="110" Height="32" Background="White" Foreground="#4A90E2" FontWeight="SemiBold" BorderBrush="#4A90E2" BorderThickness="1" Click="DeleteScheduleButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

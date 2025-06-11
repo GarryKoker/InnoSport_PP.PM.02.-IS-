@@ -1,0 +1,129 @@
+﻿<Window x:Class="InnoSport.Views.Спортсмен.SportsmenMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Панель спортсмена"
+        WindowStartupLocation="CenterScreen"
+        Height="750" Width="1150"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F0F4F8" Offset="0"/>
+            <GradientStop Color="#E3EAFD" Offset="0.5"/>
+            <GradientStop Color="#B6D0E2" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с приветствием и кнопкой редактирования профиля -->
+        <DockPanel Grid.Row="0" Margin="0,24,0,24">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                <Ellipse Width="56" Height="56" Fill="#4A90E2" Margin="0,0,16,0"/>
+                <StackPanel>
+                    <TextBlock Text="Здравствуйте, спортсмен!" FontSize="20" FontWeight="SemiBold" Foreground="#4A90E2"/>
+                    <TextBlock x:Name="SportsmenNameText" FontSize="26" FontWeight="Bold" Foreground="#222"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Content="Редактировать профиль"
+                    Background="#4A90E2" Foreground="White" FontWeight="SemiBold"
+                    BorderThickness="0" Height="38" Width="180" Margin="0,0,0,0"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Click="EditProfileButton_Click"/>
+        </DockPanel>
+
+        <!-- Основной контент -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="2.8*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левая часть: личные данные и секции -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Stretch">
+                <!-- Личные данные -->
+                <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,0,18" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Мои данные" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,12"/>
+                        <TextBlock x:Name="SportsmenFioText" Text="ФИО: " FontSize="15" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="SportsmenPhoneText" Text="Телефон: " FontSize="15" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="SportsmenEmailText" Text="Email: " FontSize="15"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Секции -->
+                <Border Background="White" CornerRadius="18" Padding="24" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Мои секции" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,12"/>
+                        <DataGrid x:Name="SectionsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HeadersVisibility="Column" RowHeight="36" FontSize="15"
+                                  Background="White" BorderThickness="0" GridLinesVisibility="None"
+                                  SelectionMode="Single" Margin="0,0,0,10"
+                                  SelectionChanged="SectionsDataGrid_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Тренер" Binding="{Binding Coach}" Width="*"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="2*"/>
+                                <DataGridTemplateColumn Header="Действие" Width="120">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Заявка на выход"
+                                                    Background="#fff" Foreground="#4A90E2"
+                                                    BorderBrush="#4A90E2" BorderThickness="1"
+                                                    FontWeight="SemiBold" Height="28" Width="110"
+                                                    Click="LeaveSectionButton_Click"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Правая часть: расписание, прогресс -->
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch">
+                <!-- Расписание тренировок -->
+                <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,0,18" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Расписание тренировок на неделю" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,12"/>
+                        <DataGrid x:Name="ScheduleDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HeadersVisibility="Column" RowHeight="36" FontSize="15"
+                                  Background="White" BorderThickness="0" GridLinesVisibility="None"
+                                  Margin="0,0,0,10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+                                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="*"/>
+                                <DataGridTextColumn Header="Секция" Binding="{Binding SectionName}" Width="*"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- График прогресса и отметка прогресса -->
+                <Border Background="White" CornerRadius="18" Padding="24" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,12">
+                            <TextBlock Text="График прогресса по секции:" FontSize="18" FontWeight="Bold" Foreground="#4A90E2"/>
+                            <ComboBox x:Name="SectionProgressComboBox" Width="180" Margin="16,0,0,0" FontSize="15" SelectionChanged="SectionProgressComboBox_SelectionChanged"/>
+                        </StackPanel>
+                        <!-- Здесь будет график (например, через стороннюю библиотеку или Canvas) -->
+                        <Border Height="160" Background="#E3EAFD" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,12">
+                            <TextBlock Text="График прогресса (заглушка)" Foreground="#4A90E2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Button Content="Отметить прогресс"
+                                Width="180" Height="36"
+                                Background="#4A90E2" Foreground="White"
+                                FontWeight="SemiBold"
+                                HorizontalAlignment="Right"
+                                Click="MarkProgressButton_Click"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

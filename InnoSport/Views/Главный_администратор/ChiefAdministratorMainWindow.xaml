@@ -1,0 +1,108 @@
+﻿<Window x:Class="InnoSport.Views.Главный_администратор.ChiefAdministratorMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Панель главного администратора"
+        WindowStartupLocation="CenterScreen"
+        Height="750" Width="1250"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F0F4F8" Offset="0"/>
+            <GradientStop Color="#E3EAFD" Offset="0.5"/>
+            <GradientStop Color="#B6D0E2" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с приветствием и кнопкой редактирования профиля -->
+        <DockPanel Grid.Row="0" Margin="0,24,0,24">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                <Ellipse Width="56" Height="56" Fill="#4A90E2" Margin="0,0,16,0"/>
+                <StackPanel>
+                    <TextBlock Text="Здравствуйте, главный администратор!" FontSize="20" FontWeight="SemiBold" Foreground="#4A90E2"/>
+                    <TextBlock x:Name="ChiefAdminNameText" FontSize="26" FontWeight="Bold" Foreground="#222"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Content="Редактировать профиль"
+                    Background="#4A90E2" Foreground="White" FontWeight="SemiBold"
+                    BorderThickness="0" Height="38" Width="180" Margin="0,0,0,0"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Click="EditProfileButton_Click"/>
+        </DockPanel>
+
+        <!-- Основной контент -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Список пользователей -->
+            <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,20,0" BorderBrush="#E3EAFD" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Пользователи" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,16"/>
+                    <DataGrid x:Name="UsersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                              HeadersVisibility="Column" RowHeight="38" FontSize="15"
+                              Background="White" BorderThickness="0" GridLinesVisibility="None"
+                              SelectionMode="Single" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}" Width="*"/>
+                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="Добавить" Width="110" Height="32" Background="#4A90E2" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,8,0" Click="AddUserButton_Click"/>
+                        <Button Content="Редактировать" Width="120" Height="32" Background="White" Foreground="#4A90E2" FontWeight="SemiBold" BorderBrush="#4A90E2" BorderThickness="1" Click="EditUserButton_Click"/>
+                        <Button Content="Удалить" Width="110" Height="32" Background="White" Foreground="#4A90E2" FontWeight="SemiBold" BorderBrush="#4A90E2" BorderThickness="1" Margin="8,0,0,0" Click="DeleteUserButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Секции и дополнительные действия -->
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch">
+                <!-- Секции -->
+                <Border Background="White" CornerRadius="18" Padding="24" Margin="0,0,0,18" BorderBrush="#E3EAFD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Секции" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,16"/>
+                        <DataGrid x:Name="SectionsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HeadersVisibility="Column" RowHeight="36" FontSize="15"
+                                  Background="White" BorderThickness="0" GridLinesVisibility="None"
+                                  Margin="0,0,0,10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="*"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                            <Button Content="Добавить" Width="110" Height="32" Background="#4A90E2" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,8,0" Click="AddSectionButton_Click"/>
+                            <Button Content="Редактировать" Width="120" Height="32" Background="White" Foreground="#4A90E2" FontWeight="SemiBold" BorderBrush="#4A90E2" BorderThickness="1" Click="EditSectionButton_Click"/>
+                            <Button Content="Удалить" Width="110" Height="32" Background="White" Foreground="#4A90E2" FontWeight="SemiBold" BorderBrush="#4A90E2" BorderThickness="1" Margin="8,0,0,0" Click="DeleteSectionButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Дополнительные действия -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0">
+                    <Border Background="White" CornerRadius="18" Padding="24" BorderBrush="#E3EAFD" BorderThickness="1" Margin="0,0,18,0">
+                        <StackPanel>
+                            <TextBlock Text="Отчёты" FontSize="18" FontWeight="Bold" Foreground="#4A90E2" Margin="0,0,0,12"/>
+                            <Button Content="Просмотреть отчёты"
+                                    Width="200" Height="36"
+                                    Background="#4A90E2" Foreground="White"
+                                    FontWeight="SemiBold"
+                                    Click="ShowReportsButton_Click"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

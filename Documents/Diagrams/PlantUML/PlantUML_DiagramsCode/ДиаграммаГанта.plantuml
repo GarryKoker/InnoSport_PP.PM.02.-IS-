@@ -1,0 +1,96 @@
+@startgantt
+language ru
+
+project starts the 2025-05-05
+
+' === ЭТАП 1: Подготовка и планирование ===
+[Постановка задачи] requires 3 days
+[Анализ требований] requires 5 days
+[Формирование команды] requires 2 days
+[Разработка плана проекта] requires 3 days
+
+[Постановка задачи] starts at 2025-05-05
+[Анализ требований] starts at [Постановка задачи]'s end
+[Формирование команды] starts at [Постановка задачи]'s end
+[Разработка плана проекта] starts at [Анализ требований]'s end
+
+' === ЭТАП 2: Проектирование ===
+[Проектирование архитектуры] requires 5 days
+[Проектирование БД] requires 4 days
+[Проектирование интерфейса] requires 5 days
+
+[Проектирование архитектуры] starts at [Разработка плана проекта]'s end
+[Проектирование БД] starts at [Проектирование архитектуры]'s end
+[Проектирование интерфейса] starts at [Проектирование архитектуры]'s end
+
+' === ЭТАП 3: Разработка ===
+[Разработка БД] requires 7 days
+[Разработка бизнес-логики] requires 12 days
+[Разработка интерфейса] requires 10 days
+[Интеграция компонентов] requires 5 days
+
+[Разработка БД] starts at [Проектирование БД]'s end
+[Разработка бизнес-логики] starts at [Проектирование архитектуры]'s end
+[Разработка интерфейса] starts at [Проектирование интерфейса]'s end
+[Интеграция компонентов] starts at [Разработка БД]'s end
+[Интеграция компонентов] starts at [Разработка бизнес-логики]'s end
+[Интеграция компонентов] starts at [Разработка интерфейса]'s end
+
+' === ЭТАП 4: Тестирование и внедрение ===
+[Модульное тестирование] requires 5 days
+[Интеграционное тестирование] requires 5 days
+[Приёмочное тестирование] requires 3 days
+[Подготовка документации] requires 4 days
+[Обучение пользователей] requires 3 days
+[Внедрение и запуск] requires 2 days
+[Сопровождение и поддержка] requires 10 days
+
+[Модульное тестирование] starts at [Интеграция компонентов]'s end
+[Интеграционное тестирование] starts at [Модульное тестирование]'s end
+[Приёмочное тестирование] starts at [Интеграционное тестирование]'s end
+[Подготовка документации] starts at [Модульное тестирование]'s start
+[Обучение пользователей] starts at [Подготовка документации]'s end
+[Внедрение и запуск] starts at [Приёмочное тестирование]'s end
+[Внедрение и запуск] starts at [Обучение пользователей]'s end
+[Сопровождение и поддержка] starts at [Внедрение и запуск]'s end
+
+' === Критические точки ===
+[Постановка задачи] is colored in LightBlue
+[Проектирование архитектуры] is colored in LightBlue
+[Интеграция компонентов] is colored in LightBlue
+[Внедрение и запуск] is colored in LightGreen
+
+' === Нерабочие дни (выходные и праздники) ===
+' Май 2025
+2025-05-09 is colored in LightPink
+2025-05-10 is colored in LightPink
+2025-05-11 is colored in LightPink
+2025-05-17 is colored in LightPink
+2025-05-18 is colored in LightPink
+2025-05-24 is colored in LightPink
+2025-05-25 is colored in LightPink
+2025-05-31 is colored in LightPink
+
+' Июнь 2025
+2025-06-01 is colored in LightPink
+2025-06-07 is colored in LightPink
+2025-06-08 is colored in LightPink
+2025-06-12 is colored in LightPink
+2025-06-14 is colored in LightPink
+2025-06-15 is colored in LightPink
+2025-06-21 is colored in LightPink
+2025-06-22 is colored in LightPink
+2025-06-28 is colored in LightPink
+2025-06-29 is colored in LightPink
+
+' Июль 2025
+2025-07-05 is colored in LightPink
+2025-07-06 is colored in LightPink
+2025-07-12 is colored in LightPink
+2025-07-13 is colored in LightPink
+2025-07-19 is colored in LightPink
+2025-07-20 is colored in LightPink
+2025-07-26 is colored in LightPink
+2025-07-27 is colored in LightPink
+
+@endgantt
